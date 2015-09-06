@@ -1,0 +1,12 @@
+[Unit]
+Name=Synapse
+Description=Matrix.org Homeserver
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/bash -c "cd ~/.synapse && source ./bin/activate && synctl start"
+ExecStop=/usr/bin/bash -c "cd ~/.synapse && source ./bin/activate && synctl stop"
+User=synapse
+
+[Install]
+WantedBy=default.target

@@ -1,2 +1,39 @@
 ---
-# tasks file for rrix.matrix-synapse
+- name: Dependencies are installed
+  dnf:
+    state: installed
+    name: "{{item}}"
+  with_items:
+  - "@c-development"
+  - openssl
+  - openssl-devel
+  - libffi-devel
+  - python-setuptools
+  - python-virtualenv
+  - libjpeg-turbo-devel
+  - libjpeg-turbo
+
+- name: Synapse user exists
+  user:
+    name: synapse
+    system: yes
+
+- name: Synapse is installed
+  pip:
+    state: latest
+    virtualenv: ~/.synapse
+    name: "{{item}}"
+    extra_args: --process-dependency-links
+  with_items:
+    - setuptools
+    - https://github.com/matrix-org/synapse/tarball/master
+  notify: restart synapse
+  sudo_user: synapse
+
+- name: Synapse systemd job is installed
+  template:
+    src: synapse.service.j2
+    dest: /etc/systemd/system/synapse.service
+  notify:
+    - reload systemd
+    - restart synapse
