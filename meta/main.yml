@@ -21,3 +21,4 @@ galaxy_info:
 dependencies:
   - { role: rrix.nspawn-base }
   - { role: rrix.python }
+  - { role: rrix.postgres }

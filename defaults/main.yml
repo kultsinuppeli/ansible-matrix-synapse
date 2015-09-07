@@ -1,2 +1,4 @@
 ---
 # defaults file for rrix.matrix-synapse
+matrix_db_host: localhost
+matrix_db_user: synapse

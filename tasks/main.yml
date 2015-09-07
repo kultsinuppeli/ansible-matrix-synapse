@@ -12,11 +12,32 @@
   - python-virtualenv
   - libjpeg-turbo-devel
   - libjpeg-turbo
+  - postgresql-devel
 
 - name: Synapse user exists
   user:
     name: synapse
     system: yes
+
+- name: Start postgres
+  service:
+    name: postgresql
+    state: running
+    enabled: yes
+
+- name: Synapse Postgres user exists
+  postgresql_user:
+    name: "{{matrix_db_user}}"
+    password: "{{matrix_db_pass}}"
+
+- name: Synapse Postgres database exists
+  postgresql_db:
+    encoding: UTF8
+    lc_collate: C
+    lc_ctype: C
+    name: synapse
+    owner: synapse
+    template: template0
 
 - name: Synapse is installed
   pip:
@@ -26,6 +47,7 @@
     extra_args: --process-dependency-links
   with_items:
     - setuptools
+    - psycopg2
     - https://github.com/matrix-org/synapse/tarball/master
   notify: restart synapse
   sudo_user: synapse
