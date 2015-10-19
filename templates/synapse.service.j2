@@ -3,7 +3,7 @@ Name=Synapse
 Description=Matrix.org Homeserver
 
 [Service]
-Type=simple
+Type=forking
 ExecStart=/usr/bin/bash -c "cd ~/.synapse && source ./bin/activate && synctl start"
 ExecStop=/usr/bin/bash -c "cd ~/.synapse && source ./bin/activate && synctl stop"
 User=synapse

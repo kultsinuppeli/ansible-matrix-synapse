@@ -52,6 +52,23 @@
   notify: restart synapse
   sudo_user: synapse
 
+- name: Synapse keys existence check
+  stat:
+    path: /home/synapse/.synapse/{{matrix_domain}}.tls.crt
+  register: cert_st
+
+- name: Synapse keys exist
+  shell: >-
+    source ./bin/activate && python -m synapse.app.homeserver  --server-name {{matrix_domain}}  --config-path homeserver.yaml  --generate-config
+    chdir: /home/synapse/.synapse
+  sudo_user: synapse
+  when: not cert_st.stat.isreg
+
+- name: Synapse configuration exists
+  template:
+    src: homeserver.yaml.j2
+    dest: /home/synapse/.synapse/homeserver.yaml
+
 - name: Synapse systemd job is installed
   template:
     src: synapse.service.j2
