@@ -48,7 +48,7 @@
   with_items:
     - setuptools
     - psycopg2
-    - https://github.com/matrix-org/synapse/tarball/master
+    - 'https://github.com/matrix-org/synapse/tarball/{{matrix_version}}'
   notify: restart synapse
   sudo_user: synapse
 
