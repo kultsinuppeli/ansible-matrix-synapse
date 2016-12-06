@@ -36,7 +36,7 @@
     name: synapse
     system: yes
 
-- name: Synapse is installed
+- name: Install setuptools
   pip:
     state: latest
     virtualenv: ~/.synapse
@@ -45,9 +45,27 @@
   with_items:
     - setuptools
     - psycopg2
+  sudo_user: synapse
+
+- name: Synapse already installed
+  shell: source ./bin/activate && pip list
+  args:
+    chdir: /home/synapse/.synapse
+    executable: /bin/bash
+  sudo_user: synapse
+  register: pip_modules
+
+- name: Synapse is installed
+  pip:
+    state: latest
+    virtualenv: ~/.synapse
+    name: "{{item}}"
+    extra_args: --process-dependency-links
+  with_items:
     - 'https://github.com/matrix-org/synapse/tarball/{{matrix_version}}'
   notify: restart synapse
   sudo_user: synapse
+  when: pip_modules.stdout.find('matrix-synapse') == -1
 
 - name: Synapse keys exist
   shell: source ./bin/activate && python -m synapse.app.homeserver  --server-name {{matrix_domain}}  --config-path homeserver.yaml  --generate-config --report-stats=no

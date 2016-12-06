@@ -1,4 +1,4 @@
-# matrix-synapse
+# ansible-matrix-synapse
 
 Install and set up [Synapse](https://github.com/matrix-org/synapse), a Python/Twisted implementation of the Matrix homeserver implementation
 
