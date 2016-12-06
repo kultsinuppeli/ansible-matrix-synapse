@@ -1,10 +1,10 @@
 ---
 galaxy_info:
-  author: your name
+  author: Ryan Rix, Kalle Happonen
   description:
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
-  issue_tracker_url: mailto:ryan@whatthefuck.computer
+  #issue_tracker_url: mailto:ryan@whatthefuck.computer
   license: GPLv3
   min_ansible_version: 1.2
   platforms:
@@ -14,11 +14,10 @@ galaxy_info:
   - name: Fedora
     versions:
     - all
+  - name: Ubuntu
+    versions:
+    - all
   categories:
   - networking
   - system
   - web
-dependencies:
-  - { role: rrix.nspawn-base }
-  - { role: rrix.python }
-  - { role: rrix.postgres }

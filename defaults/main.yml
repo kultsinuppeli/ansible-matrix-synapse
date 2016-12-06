@@ -1,4 +1,36 @@
 ---
+###########################
+## Generic variables
+###########################
+
+# The matrix domain you will use
+#matrix_domain: "mydomain"
+
+# Synapse bind address, leave blank to listen to all addresses
+matrix_bind_address: ''
+
+# Captcha
+matrix_use_recaptcha: false
+
+#matrix_recaptcha_private_key: "my_private_key"
+#matrix_recaptcha_public_key: "my_private_key"
+
+#matrix_captcha_bypass_secret: "my_bypass_secret"
+#matrix_recaptcha_siteverify_api: "https://www.google.com/recaptcha/api/siteverify"
+
+# Can new users register
+matrix_enable_registration: True
+
+# SQL backend to use, either "sqlite" or "postgresql"
+matrix_sql_backend: "sqlite"
+
+###########################
+## PostgreSQL variables 
+###########################
+
 # defaults file for rrix.matrix-synapse
 matrix_db_host: localhost
 matrix_db_user: synapse
+matrix_db: synapse
+#matrix_db_password:  mypass
+

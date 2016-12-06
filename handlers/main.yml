@@ -1,9 +1,9 @@
 ---
+- name: reload systemd
+  shell: systemctl daemon-reload
+
 - name: restart synapse
   service:
     name: synapse
     enabled: yes
     state: restarted
-
-- name: reload systemd
-  shell: systemctl daemon-reload

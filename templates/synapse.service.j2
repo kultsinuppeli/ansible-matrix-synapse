@@ -3,8 +3,8 @@ Description=Synapse Matrix.org Homeserver
 
 [Service]
 Type=forking
-ExecStart=/usr/bin/bash -c "cd ~/.synapse && source ./bin/activate && synctl start"
-ExecStop=/usr/bin/bash -c "cd ~/.synapse && source ./bin/activate && synctl stop"
+ExecStart=/bin/bash -c "cd ~/.synapse && source ./bin/activate && synctl start"
+ExecStop=/bin/bash -c "cd ~/.synapse && source ./bin/activate && synctl stop"
 User=synapse
 
 [Install]

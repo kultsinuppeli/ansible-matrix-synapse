@@ -1,5 +1,5 @@
 ---
-- name: Dependencies are installed
+- name: Dependencies are installed on Fedora
   dnf:
     state: installed
     name: "{{item}}"
@@ -13,31 +13,28 @@
   - libjpeg-turbo-devel
   - libjpeg-turbo
   - postgresql-devel
+  when: ansible_distribution == 'Fedora' 
+
+- name: Dependencies are installed on Debian
+  apt:
+    state: installed
+    name: "{{item}}"
+  with_items:
+  - openssl
+  - libffi-dev
+  - python-setuptools
+  - python-virtualenv
+  - virtualenv
+  - libjpeg-turbo8-dev
+  - libjpeg-turbo8
+  - libpq-dev
+  - libpython2.7-dev
+  when: ansible_os_family == 'Debian' 
 
 - name: Synapse user exists
   user:
     name: synapse
     system: yes
-
-- name: Start postgres
-  service:
-    name: postgresql
-    state: running
-    enabled: yes
-
-- name: Synapse Postgres user exists
-  postgresql_user:
-    name: "{{matrix_db_user}}"
-    password: "{{matrix_db_pass}}"
-
-- name: Synapse Postgres database exists
-  postgresql_db:
-    encoding: UTF8
-    lc_collate: C
-    lc_ctype: C
-    name: synapse
-    owner: synapse
-    template: template0
 
 - name: Synapse is installed
   pip:
@@ -52,17 +49,13 @@
   notify: restart synapse
   sudo_user: synapse
 
-- name: Synapse keys existence check
-  stat:
-    path: /home/synapse/.synapse/{{matrix_domain}}.tls.crt
-  register: cert_st
-
 - name: Synapse keys exist
-  shell: >-
-    source ./bin/activate && python -m synapse.app.homeserver  --server-name {{matrix_domain}}  --config-path homeserver.yaml  --generate-config
+  shell: source ./bin/activate && python -m synapse.app.homeserver  --server-name {{matrix_domain}}  --config-path homeserver.yaml  --generate-config --report-stats=no
+  args:
     chdir: /home/synapse/.synapse
+    creates: /home/synapse/.synapse/{{matrix_domain}}.tls.crt
+    executable: /bin/bash
   sudo_user: synapse
-  when: not cert_st.stat.isreg
 
 - name: Synapse configuration exists
   template:

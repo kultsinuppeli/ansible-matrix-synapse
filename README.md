@@ -29,3 +29,4 @@ GPLv3+
 ** Author Information
 
 - [[http://whatthefuck.computer][Ryan Rix]] - [[mailto:ryan@whatthefuck.computer][ryan@whatthefuck.computer]]
+- Kalle Happonen
