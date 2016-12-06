@@ -1,32 +1,29 @@
-* rrix.matrix-synapse
+# matrix-synapse
 
-Install and set up [[https://github.com/matrix-org/synapse][Synapse]], a Python/Twisted implementation of the Matrix homeserver implementation
+Install and set up [Synapse](https://github.com/matrix-org/synapse), a Python/Twisted implementation of the Matrix homeserver implementation
 
-** Requirements
-
-- None
-
-** Role Variables
+## Requirements
 
 - None
 
-** Dependencies
+## Role Variables
 
-- rrix.python
+- See defaults/main.yml
 
-** Example Playbook
+## Dependencies
 
-#+BEGIN_EXAMPLE
+- None
+
+## Example Playbook
+
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
-#+END_EXAMPLE
+         - matrix-synapse
 
-** License
+## License
 
 GPLv3+
+## Author Information
 
-** Author Information
-
-- [[http://whatthefuck.computer][Ryan Rix]] - [[mailto:ryan@whatthefuck.computer][ryan@whatthefuck.computer]]
-- Kalle Happonen
+- [Ryan Rix](http://whatthefuck.computer) - [ryan@whatthefuck.computer](mailto:ryan@whatthefuck.computer)
+- [Kalle Happonen](http://9bitwizard.eu)
