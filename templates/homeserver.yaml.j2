@@ -204,7 +204,7 @@ recaptcha_public_key: "{{ matrix_recaptcha_public_key }}"
 # Enables ReCaptcha checks when registering, preventing signup
 # unless a captcha is answered. Requires a valid ReCaptcha
 # public/private key.
-enable_registration_captcha: "{{ matrix_use_recaptcha }}"
+enable_registration_captcha: {{ matrix_use_recaptcha }}
 
 {% if matrix_captcha_bypass_secret is defined %}
 # A secret key used to bypass the captcha test entirely.
@@ -231,7 +231,7 @@ turn_user_lifetime: "1h"
 ## Registration ##
 
 # Enable registration for new users.
-enable_registration: "{{ matrix_enable_registration }}"
+enable_registration: {{ matrix_enable_registration }}
 
 # If set, allows registration by anyone who also has the shared
 # secret, even if registration is otherwise disabled.
