@@ -1,35 +1,70 @@
 ---
+- name: Common dependencies for all platforms
+  package:
+    state: installed
+    name: "{{item}}"
+  with_items:
+  - openssl
+  - python-virtualenv
+  - python-setuptools
+
+- name: Dependencies are installed on EL derivatives
+  yum:
+    state: installed
+    name: "{{item}}"
+  with_items:
+  - "@Development tools"
+  - openssl-devel
+  - libffi-devel
+  - libjpeg-devel
+  - postgresql-devel
+  when: ansible_pkg_mgr == 'yum'
+
 - name: Dependencies are installed on Fedora
   dnf:
     state: installed
     name: "{{item}}"
   with_items:
   - "@c-development"
-  - openssl
   - openssl-devel
   - libffi-devel
   - python-setuptools
-  - python-virtualenv
   - libjpeg-turbo-devel
   - libjpeg-turbo
   - postgresql-devel
-  when: ansible_distribution == 'Fedora' 
+  when: ansible_distribution == 'Fedora'
+
+- name: Common dependencies are installed on Debian derivatives
+  apt:
+    state: installed
+    name: "{{item}}"
+  with_items:
+  - build-essential
+  - libssl-dev
+  - libffi-dev
+  - python-setuptools
+  - python-virtualenv
+  - libpq-dev
+  - libpython2.7-dev
+  - libxslt1-dev
+  when: ansible_os_family == 'Debian'
 
 - name: Dependencies are installed on Debian
   apt:
     state: installed
     name: "{{item}}"
   with_items:
-  - openssl
-  - libffi-dev
-  - python-setuptools
-  - python-virtualenv
+  - libjpeg-dev
   - virtualenv
+  when: ansible_distribution == 'Debian'
+
+- name: Dependencies are installed on Ubuntu
+  apt:
+    state: installed
+    name: "{{item}}"
+  with_items:
   - libjpeg-turbo8-dev
-  - libjpeg-turbo8
-  - libpq-dev
-  - libpython2.7-dev
-  when: ansible_os_family == 'Debian' 
+  when: ansible_distribution == 'Ubuntu'
 
 - name: Synapse user exists
   user:
@@ -43,6 +78,7 @@
     name: "{{item}}"
     extra_args: --process-dependency-links
   with_items:
+    - pip
     - setuptools
     - psycopg2
   sudo_user: synapse
