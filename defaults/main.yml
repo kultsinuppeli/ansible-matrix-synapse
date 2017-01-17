@@ -3,6 +3,9 @@
 ## Generic variables
 ###########################
 
+# The release (https://github.com/matrix-org/synapse/releases) of Synapse you will use
+matrix_version: master
+
 # The matrix domain you will use
 #matrix_domain: "mydomain"
 
