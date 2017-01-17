@@ -1,0 +1,6 @@
+---
+- hosts: all
+  vars:
+    matrix_domain: "{{ ansible_fqdn }}"
+  roles:
+    - role: ansible-matrix-synapse
