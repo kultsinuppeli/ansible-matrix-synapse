@@ -101,7 +101,7 @@
     - 'https://github.com/matrix-org/synapse/tarball/{{matrix_version}}'
   notify: restart synapse
   sudo_user: synapse
-  when: pip_modules.stdout.find('matrix-synapse') == -1
+  when: pip_modules.stdout.find('matrix-synapse') == -1 or matrix_update == true
 
 - name: Synapse keys exist
   shell: source ./bin/activate && python -m synapse.app.homeserver  --server-name {{matrix_domain}}  --config-path homeserver.yaml  --generate-config --report-stats=no

@@ -6,6 +6,12 @@
 # The release (https://github.com/matrix-org/synapse/releases) of Synapse you will use
 matrix_version: master
 
+# Install a new version of synapse if it's already installed.
+# NB! Please check upgrade notes. There might be version specific changes.
+# https://github.com/matrix-org/synapse/blob/master/README.rst#upgrading-an-existing-synapse
+# If you enable this, take a backup of your state (database, files) just in case.
+matrix_update: false
+
 # The matrix domain you will use
 #matrix_domain: "mydomain"
 
